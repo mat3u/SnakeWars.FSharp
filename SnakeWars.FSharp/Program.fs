@@ -10,7 +10,22 @@ let main argv =
 
     let snake (game : State.Root) snakeId : Direction =
         // 2. Implement snake logic here!
-        Left
+
+        // -- Sample
+        let me = game.Me(snakeId)
+
+        let isTaken (pos: State.Cell) =
+            game.Taken |> Seq.exists (fun e -> e == pos)
+
+        let possible = [GoStraight; TurnLeft; TurnRight]
+                       |> Seq.map (fun m -> (m, game.NextHeadPosition snakeId m))
+                       |> Seq.where (fun (m, p) -> not (isTaken p))
+                       |> Seq.map fst
+                       |> Seq.toList
+
+        match possible with
+        | f::_ -> f
+        | _ -> GoStraight
 
         // --- ---
 

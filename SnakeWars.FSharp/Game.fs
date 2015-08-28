@@ -19,6 +19,8 @@ let game host port (login: string) bot =
 
     let snakeId = sr.ReadLine()
 
+    sr.ReadLine() |> ignore
+
     let loop() =
         let rec loop'() =
             async {
@@ -29,8 +31,8 @@ let game host port (login: string) bot =
                 printf "%A\n" direction
 
                 match direction with
-                | Left -> sw.WriteLine("LEFT")
-                | Right -> sw.WriteLine("RIGHT")
+                | TurnLeft -> sw.WriteLine("LEFT")
+                | TurnRight -> sw.WriteLine("RIGHT")
                 | _ -> sw.WriteLine("NONE")
 
                 return! loop'()
